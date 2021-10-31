@@ -109,4 +109,23 @@ To connect to your database from outside the cluster execute the following comma
 
 
 
+Connect to MongoDB:
+
+pegaz@ubuntu:~/mkube/chm1$ export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace default mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
+
+pegaz@ubuntu:~/mkube/chm1$ kubectl run --namespace default mongodb-client --rm --tty -i --restart='Never' --env="MONGODB_ROOT_PASSWORD=$MONGODB_ROOT_PASSWORD" --image docker.io/bitnami/mongodb:4.4.10-debian-10-r15 --command -- bash
+
+If you don't see a command prompt, try pressing enter.
+
+I have no name!@mongodb-client:/$ hostname 
+
+mongodb-client
+
+I have no name!@mongodb-client:/$ du -hs /bitnami/mongodb/data/
+
+4.0K	/bitnami/mongodb/data/
+
+
+
+
 
